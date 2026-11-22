@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Campus map – UniszaFind</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="Find classrooms, buildings and step-by-step directions across campus with UniszaFind.">
+<meta name="theme-color" content="#173B67">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/styles.css">
+</head><body data-page="map">
+<main class="app" id="app">
+  <h1>Campus map</h1>
+  <div class="row" style="margin:12px 0">
+    <button class="chip" data-a="tg" id="mapBtn" aria-pressed="true">Map</button>
+    <button class="chip" data-a="tg" id="listBtn" aria-pressed="false">List</button>
+  </div>
+  <div id="mapContent"></div>
+</main>
+<nav id="nav" aria-label="Main"><div></div></nav><div id="toast" role="status" aria-live="polite"></div>
+<script src="../assets/js/app.js"></script>
+</body></html>

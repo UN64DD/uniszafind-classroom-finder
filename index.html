@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UniszaFind – Classroom Finder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="Find classrooms, buildings and step-by-step directions across campus with UniszaFind.">
+<meta name="theme-color" content="#173B67">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head><body data-page="home">
+<main class="app" id="app">
+  <div class="row sp">
+    <div class="row"><div class="logo" id="logoIcon"></div><h3>UniszaFind</h3></div>
+    <a class="ib" href="pages/profile.html" style="width:44px;height:44px;border-radius:99px;font-weight:600;line-height:44px;text-align:center" aria-label="Profile">AR</a>
+  </div>
+  <h1 style="margin-top:24px">Good morning, Aisha</h1>
+  <p class="mu" style="margin:4px 0 20px">Where are you heading today?</p>
+  <a class="search" href="pages/search.html"><svg class="i" aria-hidden="true"><use href="#i-s"/></svg>Search classroom or building...</a>
+  <div class="sec"><h2>Quick access</h2><div class="grid" id="quick"></div></div>
+  <div class="sec"><h2>Recent searches</h2><div id="recent"></div></div>
+  <div class="sec"><h2>Nearby buildings</h2><div class="grid" id="nearby"></div></div>
+</main>
+<nav id="nav" aria-label="Main"><div></div></nav><div id="toast" role="status" aria-live="polite"></div>
+<script src="assets/js/app.js"></script>
+</body></html>

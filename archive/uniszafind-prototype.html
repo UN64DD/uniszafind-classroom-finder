@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UniszaFind – Classroom Finder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F9FC;--sf:#fff;--tx:#172B4D;--mu:#64748B;--pr:#173B67;--onp:#fff;--sc:#4A90E2;--bd:#E2E8F0;--in:#7C8AA0;--sel:#E8EEF6;--info:#E3F0FD;--ok:#1B7F55;--okb:#E4F5EE;--er:#C9372C;--erb:#FCE9E7;--lk:#2A6CB8;--sh:0 2px 8px rgba(23,59,103,.08);font-size:100%;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root.big{font-size:112.5%}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1B2D;--sf:#17263B;--tx:#E8EEF6;--mu:#9FB0C6;--pr:#8DBBF2;--onp:#0F1B2D;--bd:#2A3C55;--sel:#22364F;--info:#1D3550;--ok:#6FD3A6;--okb:#173A2E;--er:#FF8A80;--erb:#3D1F22;--lk:#8DBBF2;--sh:0 2px 8px rgba(0,0,0,.4)}}
+:root[data-theme="dark"]{--bg:#0F1B2D;--sf:#17263B;--tx:#E8EEF6;--mu:#9FB0C6;--pr:#8DBBF2;--onp:#0F1B2D;--bd:#2A3C55;--sel:#22364F;--info:#1D3550;--ok:#6FD3A6;--okb:#173A2E;--er:#FF8A80;--erb:#3D1F22;--lk:#8DBBF2;--sh:0 2px 8px rgba(0,0,0,.4)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:400 1rem/1.5 Inter,system-ui,sans-serif}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;text-align:left}
+:focus-visible{outline:3px solid var(--sc);outline-offset:2px}
+.app{max-width:430px;margin:auto;padding:16px 16px 104px;min-height:100vh}
+.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+h1{font:700 1.75rem/2.25rem Inter;margin:0}h2{font:600 1.125rem/1.5rem Inter;margin:0 0 12px}h3{font:600 1.375rem/1.75rem Inter;margin:0}
+.mu{color:var(--mu)}.cap{font-size:.8125rem;line-height:1.125rem}.row{display:flex;align-items:center;gap:12px}.sp{justify-content:space-between}
+.sec{margin-top:24px}.logo{width:40px;height:40px;border-radius:12px;background:var(--pr);color:var(--onp);display:grid;place-items:center}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:12px;box-shadow:var(--sh)}
+.search{width:100%;min-height:56px;padding:0 16px;border:1.5px solid var(--in);border-radius:16px;background:var(--sf);box-shadow:var(--sh);display:flex;align-items:center;gap:12px;color:var(--mu)}
+input.search{color:var(--tx);font:inherit}input::placeholder{color:var(--mu)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{min-height:56px;padding:8px 12px;display:flex;align-items:center;gap:10px;font-weight:500;font-size:.875rem;line-height:1.25rem}
+.tile:active,.item:active,.chip:active{background:var(--sel);border-color:var(--sc)}
+.ib{width:36px;height:36px;border-radius:8px;background:var(--info);display:grid;place-items:center;flex:none}
+.item{width:100%;min-height:48px;padding:8px;display:flex;align-items:center;gap:12px;border-radius:8px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;margin:0 -2px}
+.chip{min-height:40px;padding:0 16px;border-radius:99px;border:1px solid var(--bd);background:var(--sf);font-size:.875rem;font-weight:500;white-space:nowrap}
+.chip[aria-pressed=true]{background:var(--pr);color:var(--onp);border-color:var(--pr)}
+.btn{min-height:48px;padding:0 24px;border-radius:12px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;text-align:center}
+.p{background:var(--pr);color:var(--onp)}.s{border:1.5px solid var(--pr);color:var(--pr)}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;background:var(--info);font-size:.8125rem;font-weight:500}
+.res{padding:16px;width:100%;display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.back{min-height:48px;display:flex;align-items:center;gap:4px;font-weight:500;color:var(--lk);margin-left:-8px;padding:0 8px}
+.empty{text-align:center;padding:32px 16px}.empty .ib{width:56px;height:56px;margin:0 auto 12px;border-radius:99px}
+.err{background:var(--erb);color:var(--er);border-radius:12px;padding:12px 16px;margin-top:12px;font-size:.875rem}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--sf);border-top:1px solid var(--bd);padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}
+nav div{max-width:430px;margin:auto;display:flex}nav button{flex:1;min-height:56px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.8125rem;color:var(--mu);text-align:center}
+nav button span.pl{width:64px;height:32px;border-radius:99px;display:grid;place-items:center}nav button[aria-current=page]{color:var(--pr);font-weight:600}nav button[aria-current=page] .pl{background:var(--sel)}
+svg.map{width:100%;border-radius:12px;background:var(--info);display:block}.map text{font:500 .625rem Inter;fill:var(--tx)}
+.step{display:flex;gap:12px;padding:12px;border-radius:12px;opacity:.6}.step.on{opacity:1;background:var(--sel);font-weight:500}.step.done{opacity:1}.n{width:28px;height:28px;border-radius:99px;background:var(--pr);color:var(--onp);display:grid;place-items:center;font-size:.8125rem;font-weight:600;flex:none}
+#toast{position:fixed;left:50%;bottom:104px;transform:translateX(-50%);background:var(--pr);color:var(--onp);padding:12px 20px;border-radius:12px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9}#toast.on{opacity:1}
+.arr{background:var(--okb);color:var(--ok);padding:12px 16px;border-radius:12px;font-weight:600;margin-top:12px}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-s" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol><symbol id="i-h" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></symbol><symbol id="i-c" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol><symbol id="i-b" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></symbol><symbol id="i-u" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></symbol><symbol id="i-r" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol><symbol id="i-l" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol><symbol id="i-p" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol><symbol id="i-n" viewBox="0 0 24 24"><path d="M12 3l7 17-7-4-7 4z"/></symbol><symbol id="i-k" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol></svg>
+<main class="app" id="v"></main><nav id="nav" aria-label="Main"><div></div></nav><div id="toast" role="status" aria-live="polite"></div>
+<script>
+const B={A:{n:'Block A',x:30,y:30,w:80,h:60},B:{n:'Block B',x:130,y:30,w:70,h:60},F:{n:'Block F',x:230,y:30,w:80,h:80},L:{n:'Library',x:30,y:150,w:90,h:60},C:{n:'Cafeteria',x:240,y:170,w:70,h:50}};
+const R=[{id:'a',n:'Lecture Hall A',r:'LH-A',b:'A',f:'Ground floor',c:'Lecture Room',m:2,fac:['Projector','Air conditioning','Wi‑Fi','Wheelchair access']},
+{id:'b',n:'Block F, Room 203',r:'F203',b:'F',f:'Level 2',c:'Lecture Room',m:4,fac:['Projector','Wi‑Fi','Power sockets']},
+{id:'c',n:'Computer Laboratory 2',r:'F-L2',b:'F',f:'Level 1',c:'Laboratory',m:4,fac:['40 PCs','Air conditioning','Wi‑Fi','Wheelchair access']},
+{id:'d',n:'Physics Laboratory 1',r:'B104',b:'B',f:'Level 1',c:'Laboratory',m:3,fac:['Lab benches','Safety shower','Wi‑Fi']},
+{id:'e',n:'Faculty of Informatics Office',r:'F-001',b:'F',f:'Ground floor',c:'Faculty Building',m:4,fac:['Reception','Wheelchair access']},
+{id:'f',n:'Main Library',r:'L-G',b:'L',f:'Ground floor',c:'Facility',m:5,fac:['Study spaces','Wi‑Fi','Printing','Wheelchair access']},
+{id:'g',n:'Student Cafeteria',r:'C-01',b:'C',f:'Ground floor',c:'Facility',m:3,fac:['Seating','Prayer room nearby']}];
+const CATS=['All','Lecture Room','Laboratory','Faculty Building','Facility'],CL={'Lecture Room':'Lecture Rooms','Laboratory':'Laboratories','Faculty Building':'Faculty Buildings','Facility':'Facilities'};
+const S={q:'',cat:'All',sort:'near',sel:null,saved:new Set(),recent:['Lecture Hall A','Block F, Room 203'],step:0,list:false,big:false,prev:null};
+const $=s=>document.querySelector(s),ic=i=>`<svg class="i" aria-hidden="true"><use href="#i-${i}"/></svg>`;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const find=()=>{const q=S.q.trim().toLowerCase();let r=R.filter(x=>(S.cat==='All'||x.c===S.cat)&&(!q||(x.n+' '+x.r+' '+B[x.b].n).toLowerCase().includes(q)));return S.sort==='name'?r.sort((a,b)=>a.n.localeCompare(b.n)):r.sort((a,b)=>a.m-b.m)};
+const chips=a=>`<div class="chips" role="group" aria-label="Filter by type">${CATS.map(c=>`<button class="chip" data-a="${a}" data-c="${c}" aria-pressed="${S.cat===c}">${c==='All'?'All':CL[c]}</button>`).join('')}</div>`;
+const rcard=r=>`<button class="card res" data-a="room" data-id="${r.id}"><div class="ib">${ic('p')}</div><div style="flex:1"><b>${r.n}</b><div class="cap mu">${r.r} · ${B[r.b].n} · ${r.f}</div><span class="pill" style="margin-top:6px">${r.c}</span></div>${ic('r')}</button>`;
+function door(id){const b=B[id],top=b.y<120,x=b.x+b.w/2;return{x,y:top?b.y+b.h:b.y,top}}
+function map(sel,route,step){let d=sel?door(sel):null,p=d?[[170,260],[170,125],[d.x,125],[d.x,d.y]]:null,pts=p?p.map(a=>a.join(',')).join(' '):'';
+return `<svg class="map" viewBox="0 0 340 290" role="img" aria-label="Campus map${sel?' with route to '+B[sel].n:''}"><rect x="0" y="118" width="340" height="14" fill="var(--bd)"/><rect x="163" y="118" width="14" height="172" fill="var(--bd)"/>`+
+Object.entries(B).map(([k,b])=>`<g ${route?'':`data-a="bld" data-id="${k}" style="cursor:pointer" role="button" tabindex="0" aria-label="${b.n}"`}><rect x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}" rx="8" fill="${k===sel?'var(--pr)':'var(--sf)'}" stroke="var(--in)"/><text x="${b.x+b.w/2}" y="${b.y+b.h/2+4}" text-anchor="middle" style="fill:${k===sel?'var(--onp)':'var(--tx)'}">${b.n}</text></g>`).join('')+
+(p?`<polyline points="${pts}" fill="none" stroke="var(--sc)" stroke-width="4" stroke-dasharray="1 8" stroke-linecap="round"/>`:'')+
+`<circle cx="170" cy="260" r="9" fill="var(--sc)" stroke="#fff" stroke-width="3"/><text x="170" y="282" text-anchor="middle">You are here</text>`+
+(d?`<path transform="translate(${d.x-12} ${d.y-(d.top?0:24)})" d="M12 22s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z" fill="var(--er)"/>`:'')+`</svg>`}
+function steps(r){const b=B[r.b].n;return[`Head north along Main Walk`,`Turn at the junction toward ${b}`,`Enter ${b} and go to ${r.f.toLowerCase()}`,`${r.n} (${r.r}) is on your right`]}
+const V={
+home:()=>`<div class="row sp"><div class="row"><div class="logo">${ic('p')}</div><h3>UniszaFind</h3></div><button class="ib" style="width:44px;height:44px;border-radius:99px;font-weight:600" data-a="go" data-v="profile" aria-label="Profile">AR</button></div>
+<h1 style="margin-top:24px">Good morning, Aisha</h1><p class="mu" style="margin:4px 0 20px">Where are you heading today?</p>
+<button class="search" data-a="go" data-v="search">${ic('s')}Search classroom or building...</button>
+<div class="sec"><h2>Quick access</h2><div class="grid">${Object.entries(CL).map(([k,l])=>`<button class="card tile" data-a="cat" data-c="${k}"><span class="ib">${ic(k=='Facility'?'c':k=='Laboratory'?'n':k=='Lecture Room'?'h':'p')}</span>${l}</button>`).join('')}</div></div>
+<div class="sec"><h2>Recent searches</h2>${S.recent.map(t=>`<button class="item" data-a="recent" data-t="${t}"><span class="mu">${ic('k')}</span><span style="flex:1">${t}</span><span class="mu">${ic('r')}</span></button>`).join('')}</div>
+<div class="sec"><h2>Nearby buildings</h2><div class="grid">${[['F','3 min walk'],['L','5 min walk']].map(([k,m])=>`<button class="card tile" style="flex-direction:column;align-items:flex-start;padding:12px" data-a="bld" data-id="${k}"><span class="ib">${ic('p')}</span>${B[k].n}<span class="cap mu">${m}</span></button>`).join('')}</div></div>`,
+search:()=>`<button class="back" data-a="back">${ic('l')}Back</button><input id="q" class="search" placeholder="Search classroom or building..." aria-label="Search" value="${esc(S.q)}" autocomplete="off">${chips('chip')}<div id="sg">${sg()}</div>`,
+results:()=>{const r=find();return `<button class="back" data-a="back">${ic('l')}Back</button><h1 style="font-size:1.375rem;line-height:1.75rem">${r.length} result${r.length==1?'':'s'}${S.q?` for “${esc(S.q)}”`:''}</h1>${chips('chip')}<div class="row sp" style="margin:4px 0 12px"><span class="cap mu">Sorted by ${S.sort=='near'?'nearest':'name'}</span><button class="chip" data-a="sort">Sort: ${S.sort=='near'?'Nearest':'Name'}</button></div>${r.length?r.map(rcard).join(''):empty()}`},
+details:()=>{const r=S.sel,sv=S.saved.has(r.id);return `<button class="back" data-a="back">${ic('l')}Back</button><span class="pill">${r.c}</span><h1 style="margin-top:8px">${r.n}</h1><p class="mu" style="margin:0 0 16px">Room ${r.r}</p>
+<div class="grid"><div class="card" style="padding:12px"><div class="cap mu">Building</div><b>${B[r.b].n}</b></div><div class="card" style="padding:12px"><div class="cap mu">Floor</div><b>${r.f}</b></div></div>
+<div class="sec"><h2>Facilities</h2><div style="display:flex;flex-wrap:wrap;gap:8px">${r.fac.map(f=>`<span class="pill">${f}</span>`).join('')}</div></div>
+<div class="sec"><h2>Direction preview</h2>${map(r.b,1)}<p class="cap mu">About ${r.m} min walk from your location</p></div>
+<div style="display:grid;gap:12px;margin-top:24px"><button class="btn p" data-a="dir">${ic('n')}Get Directions</button><button class="btn s" data-a="save">${ic('b')}${sv?'Saved – tap to remove':'Save room'}</button></div>`},
+navigate:()=>{const r=S.sel,st=steps(r),done=S.step>=st.length;return `<button class="back" data-a="back">${ic('l')}Back</button><h3>To ${r.n}</h3><p class="mu" style="margin:0 0 12px">From: Main Gate (your location) · <b>${r.m} min · ${r.m*70} m</b></p>${map(r.b,1)}
+<div class="sec" aria-live="polite">${done?`<div class="arr">You’ve arrived at ${r.n}</div>`:''}${st.map((s,i)=>`<div class="step ${i==S.step?'on':''} ${i<S.step?'done':''}"><span class="n">${i<S.step?'✓':i+1}</span>${s}</div>`).join('')}</div>
+<div style="display:grid;gap:12px;margin-top:16px">${done?'':`<button class="btn p" data-a="next">${S.step==st.length-1?'I’ve arrived':'Next step'}</button>`}<button class="btn s" data-a="end">${done?'Done':'End navigation'}</button></div>`},
+map:()=>`<h1>Campus map</h1><div class="row" style="margin:12px 0"><button class="chip" data-a="tg" aria-pressed="${!S.list}">Map</button><button class="chip" data-a="tg" aria-pressed="${S.list}">List</button></div>${S.list?Object.entries(B).map(([k,b])=>`<button class="card res" data-a="bld" data-id="${k}"><div class="ib">${ic('p')}</div><b style="flex:1">${b.n}</b>${ic('r')}</button>`).join(''):map(null,0)+'<p class="cap mu">Tap a building to see its rooms.</p>'}`,
+saved:()=>`<h1>Saved rooms</h1><div style="margin-top:16px">${S.saved.size?[...S.saved].map(i=>rcard(R.find(x=>x.id==i))).join(''):`<div class="empty card"><div class="ib">${ic('b')}</div><b>No saved rooms yet</b><p class="mu">Open a room and tap “Save room” to find it here quickly.</p><button class="btn p" data-a="go" data-v="search">Search rooms</button></div>`}</div>`,
+profile:()=>`<h1>Profile</h1><div class="card" style="padding:16px;margin:16px 0" ><b>Guest visitor</b><p class="mu" style="margin:0">Sign-in with your university ID is coming soon.</p></div><button class="card res" data-a="big" aria-pressed="${S.big}"><b style="flex:1">Larger text</b><span class="pill">${S.big?'On':'Off'}</span></button>`};
+function sg(){const r=find().slice(0,5);return S.q&&!r.length?empty():`<h2 style="margin-top:8px">${S.q?'Suggestions':'Recent searches'}</h2>`+(S.q?r.map(x=>`<button class="item" data-a="room" data-id="${x.id}"><span class="mu">${ic('s')}</span><span style="flex:1"><b>${x.n}</b><span class="cap mu"> · ${B[x.b].n}</span></span></button>`).join(''):S.recent.map(t=>`<button class="item" data-a="recent" data-t="${t}"><span class="mu">${ic('k')}</span><span style="flex:1">${t}</span></button>`).join(''))+(S.q?`<button class="btn p" style="margin-top:12px" data-a="go" data-v="results">See all results</button>`:'')}
+function empty(){return `<div class="empty card"><div class="ib">${ic('s')}</div><b>No classrooms found</b><p class="mu">Check the spelling, or try a room number such as “F203” or a building name.</p><button class="btn s" data-a="clear">Clear search and filters</button></div>`}
+let lastView=null;
+function render(){let v=location.hash.slice(1)||'home';if(!V[v]||((v=='details'||v=='navigate')&&!S.sel))v='home';$('#v').innerHTML=V[v]();if(v!==lastView)window.scrollTo(0,0);lastView=v;
+const t=[['home','Home','h'],['map','Explore','c'],['saved','Saved','b'],['profile','Profile','u']],on=v=='results'||v=='search'||v=='details'?'home':v;
+$('#nav').style.display=v=='navigate'?'none':'';$('#nav div').innerHTML=t.map(([k,l,i])=>`<button data-a="go" data-v="${k}" ${on==k?'aria-current="page"':''}><span class="pl">${ic(i)}</span>${l}</button>`).join('');
+if(v=='search'){const q=$('#q');q.focus();q.setSelectionRange(q.value.length,q.value.length)}}
+let toastTimer;
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('on'),1800)}
+const go=v=>{const cur=location.hash.slice(1)||'home';if(cur===v){render();return}S.prev=cur;location.hash=v};
+const back=()=>{const p=S.prev||'home';S.prev=null;location.hash=p;if((location.hash.slice(1)||'home')===p)render()};
+document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(!t)return;const a=t.dataset.a,d=t.dataset;
+if(a=='go')go(d.v);else if(a=='back')back();
+else if(a=='cat'){S.cat=d.c;S.q='';go('results')}else if(a=='chip'){S.cat=d.c;render();if(location.hash=='#search')$('#q').focus()}
+else if(a=='sort'){S.sort=S.sort=='near'?'name':'near';render()}
+else if(a=='room'){S.sel=R.find(x=>x.id==d.id);S.recent=[S.sel.n,...S.recent.filter(x=>x!=S.sel.n)].slice(0,3);go('details')}
+else if(a=='recent'){S.q=d.t;S.cat='All';go('results')}else if(a=='bld'){S.q=B[d.id].n;S.cat='All';go('results')}
+else if(a=='save'){const i=S.sel.id;S.saved.has(i)?S.saved.delete(i):S.saved.add(i);toast(S.saved.has(i)?'Room saved':'Removed from saved');render()}
+else if(a=='dir'){S.step=0;go('navigate')}else if(a=='next'){S.step++;render()}else if(a=='end')go('details')
+else if(a=='tg'){S.list=t.textContent=='List';render()}else if(a=='clear'){S.q='';S.cat='All';render()}
+else if(a=='big'){S.big=!S.big;document.documentElement.classList.toggle('big',S.big);render()}});
+document.addEventListener('input',e=>{if(e.target.id=='q'){S.q=e.target.value;$('#sg').innerHTML=sg()}});
+document.addEventListener('keydown',e=>{if(e.target.id=='q'&&e.key=='Enter')go('results');if(e.key=='Enter'&&e.target.matches('svg g[data-a]'))e.target.dispatchEvent(new MouseEvent('click',{bubbles:true}))});
+addEventListener('hashchange',render);render();
+</script></body></html>

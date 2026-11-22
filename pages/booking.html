@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Book classroom – UniszaFind</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="Reserve a campus classroom locally with UniszaFind.">
+<meta name="theme-color" content="#173B67">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/styles.css">
+</head><body data-page="booking">
+<main class="app" id="app">
+  <a class="back" href="details.html" data-back><svg class="i" aria-hidden="true"><use href="#i-l"/></svg>Back</a>
+  <h1 style="margin-top:8px">Book classroom</h1>
+  <div id="bookingRoom"></div>
+  <form id="bookingForm" novalidate>
+    <input type="hidden" id="bkRoom">
+    <div class="sec">
+      <h2>Booking details</h2>
+      <div class="field"><label for="bkDate">Date</label><input id="bkDate" type="date" required></div>
+      <div class="grid">
+        <div class="field"><label for="bkStart">Start time</label><input id="bkStart" type="time" step="1800" required></div>
+        <div class="field"><label for="bkEnd">End time</label><input id="bkEnd" type="time" step="1800" required></div>
+      </div>
+      <p class="hint" id="bkSlots">Available slots</p>
+      <div class="field"><label for="bkPurpose">Purpose of booking</label><input id="bkPurpose" type="text" placeholder="e.g. Tutorial session" required></div>
+      <div class="field"><label for="bkParticipants">Number of participants</label><input id="bkParticipants" type="number" min="1" value="1" required></div>
+      <div class="field"><label for="bkRemarks">Remarks (optional)</label><textarea id="bkRemarks" placeholder="Any extra notes for this booking..."></textarea></div>
+    </div>
+    <div id="bkError" class="form-error" role="alert"></div>
+    <div style="display:grid;gap:12px;margin-top:16px">
+      <button class="btn p" type="submit"><svg class="i" aria-hidden="true"><use href="#i-b"/></svg>Confirm booking</button>
+      <a class="btn s" id="bkCancel" href="details.html">Cancel</a>
+    </div>
+  </form>
+</main>
+<nav id="nav" aria-label="Main"><div></div></nav><div id="toast" role="status" aria-live="polite"></div>
+<script src="../assets/js/app.js"></script>
+</body></html>

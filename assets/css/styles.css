@@ -86,3 +86,16 @@ svg.map{width:100%;border-radius:12px;background:var(--info);display:block}
 @media(min-width:1440px){
   .app{max-width:1040px}
 }
+
+/* Classroom booking */
+.room-shot{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;background:var(--info);display:block}
+.status-free{background:var(--okb);color:var(--ok)}
+.status-busy{background:var(--erb);color:var(--er)}
+.field{display:grid;gap:6px;margin-bottom:14px}
+.field label{font-weight:600;font-size:.875rem}
+.field input,.field textarea{width:100%;min-height:48px;padding:12px;border:1.5px solid var(--in);border-radius:12px;background:var(--sf);color:var(--tx);font:inherit}
+.field textarea{min-height:88px;resize:vertical}
+.hint{font-size:.8125rem;color:var(--mu)}
+.form-error{display:none;background:var(--erb);color:var(--er);border-radius:12px;padding:12px 16px;margin-top:12px;font-size:.875rem}
+.form-error.on{display:block}
+button:disabled{cursor:not-allowed}

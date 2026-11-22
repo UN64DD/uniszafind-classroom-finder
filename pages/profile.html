@@ -10,8 +10,42 @@
 </head><body data-page="profile">
 <main class="app" id="app">
   <h1>Profile</h1>
-  <div class="card" style="padding:16px;margin:16px 0"><b>Guest visitor</b><p class="mu" style="margin:0">Sign-in with your university ID is coming soon.</p></div>
-  <button class="card res" data-a="big" id="bigBtn" aria-pressed="false"><b style="flex:1">Larger text</b><span class="pill" id="bigState">Off</span></button>
+
+  <div class="card" style="padding:20px;margin:16px 0">
+    <div class="row">
+      <div class="avatar">AR</div>
+      <div style="flex:1">
+        <b style="font-size:1.125rem">Aisha Rahman</b>
+        <div class="cap mu">Guest visitor · UniSZA campus</div>
+      </div>
+    </div>
+    <p class="cap mu" style="margin:16px 0 0">Sign-in with your university ID is coming soon.</p>
+  </div>
+
+  <div class="sec">
+    <h2>Preferences</h2>
+    <button class="card res" data-a="big" id="bigBtn" aria-pressed="false">
+      <span class="ib" style="font-weight:700">Aa</span>
+      <b style="flex:1">Larger text</b>
+      <span class="pill" id="bigState">Off</span>
+    </button>
+  </div>
+
+  <div class="sec">
+    <h2>Quick links</h2>
+    <a class="card res" href="saved.html"><div class="ib"><svg class="i" aria-hidden="true"><use href="#i-b"/></svg></div><b style="flex:1">Saved rooms</b><svg class="i" aria-hidden="true"><use href="#i-r"/></svg></a>
+    <a class="card res" href="map.html"><div class="ib"><svg class="i" aria-hidden="true"><use href="#i-c"/></svg></div><b style="flex:1">Campus map</b><svg class="i" aria-hidden="true"><use href="#i-r"/></svg></a>
+    <a class="card res" href="search.html"><div class="ib"><svg class="i" aria-hidden="true"><use href="#i-s"/></svg></div><b style="flex:1">Search rooms</b><svg class="i" aria-hidden="true"><use href="#i-r"/></svg></a>
+  </div>
+
+  <div class="sec">
+    <h2>About</h2>
+    <div class="card" style="padding:16px">
+      <div class="row sp"><span class="cap mu">Version</span><span class="cap">1.0.0</span></div>
+      <div class="row sp" style="margin-top:8px"><span class="cap mu">App</span><span class="cap">UniszaFind</span></div>
+      <p class="cap mu" style="margin:12px 0 0">Campus map and room data are illustrative.</p>
+    </div>
+  </div>
 </main>
 <nav id="nav" aria-label="Main"><div></div></nav><div id="toast" role="status" aria-live="polite"></div>
 <script src="../assets/js/app.js"></script>
